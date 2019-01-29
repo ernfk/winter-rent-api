@@ -1,7 +1,7 @@
-package com.winterrent.winterrent.rest;
+package com.winterrent.winterrent.rest.itemPropertyDefinition;
 
 import com.winterrent.winterrent.entity.ItemPropertyDefinition;
-import com.winterrent.winterrent.service.ItemPropertyDefinitionService;
+import com.winterrent.winterrent.service.itemPropertyDefinition.ItemPropertyDefinitionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,4 +30,5 @@ public class ItemPropertyDefinitionRestController {
     List<ItemPropertyDefinition> findByItemTypeId(@PathVariable int itemTypeId) {
         return this.itemPropertyDefinitionService.findByItemTypeId(itemTypeId);
     }
+
 }

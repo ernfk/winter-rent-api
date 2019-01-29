@@ -1,8 +1,7 @@
-package com.winterrent.winterrent.rest;
+package com.winterrent.winterrent.rest.itemType;
 
-import com.winterrent.winterrent.dao.ItemTypeDAO;
 import com.winterrent.winterrent.entity.ItemType;
-import com.winterrent.winterrent.service.ItemTypeService;
+import com.winterrent.winterrent.service.itemType.ItemTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

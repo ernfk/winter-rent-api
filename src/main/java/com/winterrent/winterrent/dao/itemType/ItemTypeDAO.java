@@ -1,9 +1,9 @@
-package com.winterrent.winterrent.service;
+package com.winterrent.winterrent.dao.itemType;
 
 import com.winterrent.winterrent.entity.ItemType;
 
 import java.util.List;
 
-public interface ItemTypeService {
+public interface ItemTypeDAO {
     public List<ItemType> findAll();
 }

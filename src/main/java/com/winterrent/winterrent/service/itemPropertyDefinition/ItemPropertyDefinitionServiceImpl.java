@@ -1,6 +1,6 @@
-package com.winterrent.winterrent.service;
+package com.winterrent.winterrent.service.itemPropertyDefinition;
 
-import com.winterrent.winterrent.dao.ItemPropertyDefinitionDAO;
+import com.winterrent.winterrent.dao.itemPropertyDefinition.ItemPropertyDefinitionDAO;
 import com.winterrent.winterrent.entity.ItemPropertyDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

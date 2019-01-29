@@ -1,4 +1,4 @@
-package com.winterrent.winterrent.dao;
+package com.winterrent.winterrent.dao.itemPropertyDefinition;
 
 import com.winterrent.winterrent.entity.ItemPropertyDefinition;
 import org.hibernate.Session;

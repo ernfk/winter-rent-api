@@ -1,6 +1,6 @@
-package com.winterrent.winterrent.service;
+package com.winterrent.winterrent.service.itemType;
 
-import com.winterrent.winterrent.dao.ItemTypeDAO;
+import com.winterrent.winterrent.dao.itemType.ItemTypeDAO;
 import com.winterrent.winterrent.entity.ItemType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

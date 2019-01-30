@@ -15,8 +15,8 @@ public class ItemPropertyDefinition {
     @Column(name = "property_name")
     private String propertyName;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "type_id")
+    @Column(name = "type")
+    @Enumerated(EnumType.STRING)
     private ItemType itemType;
 
     public ItemPropertyDefinition() {

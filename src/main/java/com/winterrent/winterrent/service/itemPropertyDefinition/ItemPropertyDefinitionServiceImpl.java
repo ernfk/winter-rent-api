@@ -2,6 +2,7 @@ package com.winterrent.winterrent.service.itemPropertyDefinition;
 
 import com.winterrent.winterrent.dao.itemPropertyDefinition.ItemPropertyDefinitionDAO;
 import com.winterrent.winterrent.entity.ItemPropertyDefinition;
+import com.winterrent.winterrent.entity.ItemType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +29,8 @@ public class ItemPropertyDefinitionServiceImpl implements ItemPropertyDefinition
     }
 
     @Override
-    public List<ItemPropertyDefinition> findByItemTypeId(int itemTypeId) {
-        logger.info("Find item property definitions by item type id: {}", itemTypeId);
-        return itemPropertyDefinitionDAO.findByItemTypeId(itemTypeId);
+    public List<ItemPropertyDefinition> findByItemTypeId(ItemType itemType) {
+        logger.info("Find item property definitions by item type: {}", itemType);
+        return itemPropertyDefinitionDAO.findByItemTypeId(itemType);
     }
 }

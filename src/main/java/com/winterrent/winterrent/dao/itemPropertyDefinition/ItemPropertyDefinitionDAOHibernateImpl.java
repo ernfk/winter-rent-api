@@ -1,6 +1,7 @@
 package com.winterrent.winterrent.dao.itemPropertyDefinition;
 
 import com.winterrent.winterrent.entity.ItemPropertyDefinition;
+import com.winterrent.winterrent.entity.ItemType;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,10 +33,10 @@ public class ItemPropertyDefinitionDAOHibernateImpl implements ItemPropertyDefin
 
     @Override
     @Transactional
-    public List<ItemPropertyDefinition> findByItemTypeId(int itemTypeId) {
+    public List<ItemPropertyDefinition> findByItemTypeId(ItemType itemType) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<ItemPropertyDefinition> theQuery = currentSession.createQuery("from ItemPropertyDefinition AS ipf where ipf.itemType.id=:itemTypeId", ItemPropertyDefinition.class);
-        theQuery.setParameter("itemTypeId", itemTypeId);
+        Query<ItemPropertyDefinition> theQuery = currentSession.createQuery("from ItemPropertyDefinition AS ipf where ipf.itemType=:itemType", ItemPropertyDefinition.class);
+        theQuery.setParameter("itemType", itemType);
         List<ItemPropertyDefinition> itemPropertyDefinitions = theQuery.getResultList();
         return itemPropertyDefinitions;
     }

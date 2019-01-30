@@ -12,8 +12,8 @@ public class Item {
     @Column(name = "id")
     private int id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "type_id")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type")
     private ItemType itemType;
 
     public Item() {

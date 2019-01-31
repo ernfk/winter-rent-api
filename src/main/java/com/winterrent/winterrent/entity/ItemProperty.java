@@ -1,5 +1,7 @@
 package com.winterrent.winterrent.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -14,6 +16,7 @@ public class ItemProperty {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "item_id")
+    @JsonBackReference
     private Item item;
 
     @ManyToOne(fetch = FetchType.EAGER)

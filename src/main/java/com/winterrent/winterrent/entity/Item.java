@@ -1,6 +1,9 @@
 package com.winterrent.winterrent.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -14,14 +17,19 @@ public class Item {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "type")
+    @JsonManagedReference
     private ItemType itemType;
+
+    @OneToMany(mappedBy = "item")
+    private List<ItemProperty> itemProperties;
 
     public Item() {
 
     }
 
-    public Item(ItemType itemType) {
+    public Item(ItemType itemType, List<ItemProperty> itemProperties) {
         this.itemType = itemType;
+        this.itemProperties = itemProperties;
     }
 
     public int getId() {
@@ -40,11 +48,20 @@ public class Item {
         this.itemType = itemType;
     }
 
+    public List<ItemProperty> getItemProperties() {
+        return itemProperties;
+    }
+
+    public void setItemProperties(List<ItemProperty> itemProperties) {
+        this.itemProperties = itemProperties;
+    }
+
     @Override
     public String toString() {
         return "Item{" +
                 "id=" + id +
                 ", itemType=" + itemType +
+                ", itemProperties=" + itemProperties +
                 '}';
     }
 
@@ -54,11 +71,12 @@ public class Item {
         if (o == null || getClass() != o.getClass()) return false;
         Item item = (Item) o;
         return id == item.id &&
-                Objects.equals(itemType, item.itemType);
+                itemType == item.itemType &&
+                Objects.equals(itemProperties, item.itemProperties);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, itemType);
+        return Objects.hash(id, itemType, itemProperties);
     }
 }

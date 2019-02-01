@@ -26,6 +26,10 @@ public class ItemProperty {
     @Column(name = "value")
     private String value;
 
+    @Column(name = "type")
+    @Enumerated(EnumType.STRING)
+    private ItemType itemType;
+
     public ItemProperty() {
     }
 
@@ -67,6 +71,14 @@ public class ItemProperty {
         this.value = value;
     }
 
+    public ItemType getItemType() {
+        return itemType;
+    }
+
+    public void setItemType(ItemType itemType) {
+        this.itemType = itemType;
+    }
+
     @Override
     public String toString() {
         return "ItemProperty{id=" + id + '}';
@@ -80,11 +92,12 @@ public class ItemProperty {
         return id == that.id &&
                 Objects.equals(item, that.item) &&
                 Objects.equals(itemPropertyDefinition, that.itemPropertyDefinition) &&
-                Objects.equals(value, that.value);
+                Objects.equals(value, that.value) &&
+                itemType == that.itemType;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, item, itemPropertyDefinition, value);
+        return Objects.hash(id, item, itemPropertyDefinition, value, itemType);
     }
 }

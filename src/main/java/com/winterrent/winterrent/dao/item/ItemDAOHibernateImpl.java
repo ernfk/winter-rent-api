@@ -28,4 +28,11 @@ public class ItemDAOHibernateImpl implements ItemDAO {
         List<Item> items = theQuery.getResultList();
         return items;
     }
+
+    @Override
+    public Item addItem(Item item) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        currentSession.saveOrUpdate(item);
+        return item;
+    }
 }

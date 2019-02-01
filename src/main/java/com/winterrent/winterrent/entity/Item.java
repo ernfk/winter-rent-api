@@ -17,10 +17,11 @@ public class Item {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "type")
-    @JsonManagedReference
     private ItemType itemType;
 
     @OneToMany(mappedBy = "item")
+    // @JsonManagedReference is the forward part of reference which gets serialized normally.
+    @JsonManagedReference
     private List<ItemProperty> itemProperties;
 
     public Item() {

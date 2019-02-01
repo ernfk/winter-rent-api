@@ -3,9 +3,7 @@ package com.winterrent.winterrent.rest.item;
 import com.winterrent.winterrent.entity.Item;
 import com.winterrent.winterrent.service.item.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,5 +21,11 @@ public class ItemRestController {
     @GetMapping("/items")
     List<Item> findAll() {
         return this.itemService.findAll();
+    }
+
+    @PostMapping("/items")
+    Item addItem(@RequestBody Item item) {
+        item.setId(0);
+        return this.itemService.addItem(item);
     }
 }

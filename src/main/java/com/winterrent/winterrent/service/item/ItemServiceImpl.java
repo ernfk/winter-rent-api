@@ -26,4 +26,10 @@ public class ItemServiceImpl implements ItemService {
         logger.info("Finding all items");
         return this.itemDAO.findAll();
     }
+
+    @Override
+    public Item addItem(Item item) {
+        logger.info("Adding new item");
+        return this.itemDAO.addItem(item);
+    }
 }

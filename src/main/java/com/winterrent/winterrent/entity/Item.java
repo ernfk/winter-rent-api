@@ -19,7 +19,7 @@ public class Item {
     @Column(name = "type")
     private ItemType itemType;
 
-    @OneToMany(mappedBy = "item")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "item", orphanRemoval = true)
     // @JsonManagedReference is the forward part of reference which gets serialized normally.
     @JsonManagedReference
     private List<ItemProperty> itemProperties;
@@ -59,11 +59,7 @@ public class Item {
 
     @Override
     public String toString() {
-        return "Item{" +
-                "id=" + id +
-                ", itemType=" + itemType +
-                ", itemProperties=" + itemProperties +
-                '}';
+        return "Item{id=" + id + '}';
     }
 
     @Override

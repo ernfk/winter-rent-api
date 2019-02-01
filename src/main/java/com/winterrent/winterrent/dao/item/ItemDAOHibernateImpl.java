@@ -30,6 +30,7 @@ public class ItemDAOHibernateImpl implements ItemDAO {
     }
 
     @Override
+    @Transactional
     public Item addItem(Item item) {
         Session currentSession = entityManager.unwrap(Session.class);
         currentSession.saveOrUpdate(item);

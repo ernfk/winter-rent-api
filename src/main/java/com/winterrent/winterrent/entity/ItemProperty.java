@@ -26,7 +26,8 @@ public class ItemProperty {
     @Column(name = "value")
     private String value;
 
-    public ItemProperty(){}
+    public ItemProperty() {
+    }
 
     public ItemProperty(Item item, ItemPropertyDefinition itemPropertyDefinition, String value) {
         this.item = item;
@@ -68,12 +69,7 @@ public class ItemProperty {
 
     @Override
     public String toString() {
-        return "ItemProperty{" +
-                "id=" + id +
-                ", item=" + item +
-                ", itemPropertyDefinition=" + itemPropertyDefinition +
-                ", value='" + value + '\'' +
-                '}';
+        return "ItemProperty{id=" + id + '}';
     }
 
     @Override

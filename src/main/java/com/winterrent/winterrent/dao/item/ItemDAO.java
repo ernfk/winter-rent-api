@@ -9,4 +9,5 @@ public interface ItemDAO {
     List<Item> findAll();
     Item addItem(Item item);
     Optional<Item> findItem(int itemId);
+    void deleteItem(int itemId);
 }

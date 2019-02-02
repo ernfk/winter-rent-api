@@ -41,4 +41,17 @@ public class ItemServiceImpl implements ItemService {
         Optional<Item> item = this.itemDAO.findItem(itemId);
         return item.orElseThrow(() -> new ItemNotFound("The item with id: " + itemId + " was not found"));
     }
+
+    @Override
+    public void deleteItem(int itemId) {
+        logger.info("Deleting item with id: {}", itemId);
+        Optional<Item> item = this.itemDAO.findItem(itemId);
+
+        item.ifPresentOrElse(
+                i -> this.itemDAO.deleteItem(itemId),
+                () -> {
+                    throw new ItemNotFound("Couldn't delete item. Item with id: " + itemId + " was not found.");
+                });
+
+    }
 }

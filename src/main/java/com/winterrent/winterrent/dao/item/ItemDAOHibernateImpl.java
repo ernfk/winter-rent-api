@@ -39,9 +39,19 @@ public class ItemDAOHibernateImpl implements ItemDAO {
     }
 
     @Override
+    @Transactional
     public Optional<Item> findItem(int itemId) {
         Session currentSession = entityManager.unwrap(Session.class);
         Item item = currentSession.get(Item.class, itemId);
         return Optional.ofNullable(item);
+    }
+
+    @Override
+    @Transactional
+    public void deleteItem(int itemId) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query theQuery = currentSession.createQuery("delete from Item as it where it.id=:itemId");
+        theQuery.setParameter("itemId", itemId);
+        theQuery.executeUpdate();
     }
 }

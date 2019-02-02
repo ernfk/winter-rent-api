@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class ItemDAOHibernateImpl implements ItemDAO {
@@ -35,5 +36,12 @@ public class ItemDAOHibernateImpl implements ItemDAO {
         Session currentSession = entityManager.unwrap(Session.class);
         currentSession.saveOrUpdate(item);
         return item;
+    }
+
+    @Override
+    public Optional<Item> findItem(int itemId) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Item item = currentSession.get(Item.class, itemId);
+        return Optional.ofNullable(item);
     }
 }

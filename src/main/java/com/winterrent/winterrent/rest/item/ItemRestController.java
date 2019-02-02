@@ -28,4 +28,10 @@ public class ItemRestController {
         item.setId(0);
         return this.itemService.addItem(item);
     }
+
+    @GetMapping("items/{itemId}")
+    Item findItem(@PathVariable int itemId) {
+        return this.itemService.findItem(itemId);
+    }
+
 }

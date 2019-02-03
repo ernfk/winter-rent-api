@@ -33,7 +33,7 @@ public class ItemPropertyDefinitionDAOHibernateImpl implements ItemPropertyDefin
 
     @Override
     @Transactional
-    public List<ItemPropertyDefinition> findByItemTypeId(ItemType itemType) {
+    public List<ItemPropertyDefinition> findByItemType(ItemType itemType) {
         Session currentSession = entityManager.unwrap(Session.class);
         Query<ItemPropertyDefinition> theQuery = currentSession.createQuery("from ItemPropertyDefinition AS ipf where ipf.itemType=:itemType", ItemPropertyDefinition.class);
         theQuery.setParameter("itemType", itemType);

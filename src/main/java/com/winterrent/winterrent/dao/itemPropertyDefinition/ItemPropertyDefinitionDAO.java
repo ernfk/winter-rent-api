@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ItemPropertyDefinitionDAO {
     List<ItemPropertyDefinition> findAll();
-    List<ItemPropertyDefinition> findByItemTypeId(ItemType itemType);
+    List<ItemPropertyDefinition> findByItemType(ItemType itemType);
 }

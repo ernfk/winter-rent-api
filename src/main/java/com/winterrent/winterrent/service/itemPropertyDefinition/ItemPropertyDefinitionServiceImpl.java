@@ -29,8 +29,8 @@ public class ItemPropertyDefinitionServiceImpl implements ItemPropertyDefinition
     }
 
     @Override
-    public List<ItemPropertyDefinition> findByItemTypeId(ItemType itemType) {
+    public List<ItemPropertyDefinition> findByItemType(ItemType itemType) {
         logger.info("Find item property definitions by item type: {}", itemType);
-        return itemPropertyDefinitionDAO.findByItemTypeId(itemType);
+        return itemPropertyDefinitionDAO.findByItemType(itemType);
     }
 }

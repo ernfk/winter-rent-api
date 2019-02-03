@@ -28,8 +28,8 @@ public class ItemPropertyDefinitionRestController {
     }
 
     @GetMapping("/itemPropertyDefinitions/itemType/{itemType}")
-    List<ItemPropertyDefinition> findByItemTypeId(@PathVariable ItemType itemType) {
-        return this.itemPropertyDefinitionService.findByItemTypeId(itemType);
+    List<ItemPropertyDefinition> findByItemType(@PathVariable ItemType itemType) {
+        return this.itemPropertyDefinitionService.findByItemType(itemType);
     }
 
 }

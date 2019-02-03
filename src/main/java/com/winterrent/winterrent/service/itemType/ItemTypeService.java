@@ -2,8 +2,8 @@ package com.winterrent.winterrent.service.itemType;
 
 import com.winterrent.winterrent.entity.ItemType;
 
-import java.util.Map;
+import java.util.List;
 
 public interface ItemTypeService {
-    Map<Integer, ItemType> getAll();
+    List<ItemType> getAll();
 }

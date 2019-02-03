@@ -11,11 +11,11 @@ import java.util.List;
 @Service
 public class ItemTypeServiceImpl implements ItemTypeService {
 
-    private static final Logger logger = LoggerFactory.getLogger(ItemTypeServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ItemTypeServiceImpl.class);
 
     @Override
     public List<ItemType> getAll() {
-        logger.info("Getting item types");
+        LOGGER.info("Getting item types");
         return Arrays.asList(ItemType.values());
     }
 }

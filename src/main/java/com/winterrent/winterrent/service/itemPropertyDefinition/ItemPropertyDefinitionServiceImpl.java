@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public class ItemPropertyDefinitionServiceImpl implements ItemPropertyDefinitionService {
 
-    private static final Logger logger = LoggerFactory.getLogger(ItemPropertyDefinitionServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ItemPropertyDefinitionServiceImpl.class);
 
     private ItemPropertyDefinitionDAO itemPropertyDefinitionDAO;
 
@@ -24,13 +24,13 @@ public class ItemPropertyDefinitionServiceImpl implements ItemPropertyDefinition
 
     @Override
     public List<ItemPropertyDefinition> findAll() {
-        logger.info("Find all item property definitions");
+        LOGGER.info("Find all item property definitions");
         return itemPropertyDefinitionDAO.findAll();
     }
 
     @Override
     public List<ItemPropertyDefinition> findByItemType(ItemType itemType) {
-        logger.info("Find item property definitions by item type: {}", itemType);
+        LOGGER.info("Find item property definitions by item type: {}", itemType);
         return itemPropertyDefinitionDAO.findByItemType(itemType);
     }
 }

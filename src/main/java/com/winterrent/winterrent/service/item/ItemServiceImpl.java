@@ -14,7 +14,7 @@ import java.util.Optional;
 @Service
 public class ItemServiceImpl implements ItemService {
 
-    private static final Logger logger = LoggerFactory.getLogger(ItemServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ItemServiceImpl.class);
 
     private ItemDAO itemDAO;
 
@@ -25,26 +25,26 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<Item> findAll() {
-        logger.info("Finding all items");
+        LOGGER.info("Finding all items");
         return this.itemDAO.findAll();
     }
 
     @Override
     public Item addItem(Item item) {
-        logger.info("Adding new item");
+        LOGGER.info("Adding new item");
         return this.itemDAO.addItem(item);
     }
 
     @Override
     public Item findItem(int itemId) {
-        logger.info("Finding item with id: {}", itemId);
+        LOGGER.info("Finding item with id: {}", itemId);
         Optional<Item> item = this.itemDAO.findItem(itemId);
         return item.orElseThrow(() -> new ItemNotFound("The item with id: " + itemId + " was not found"));
     }
 
     @Override
     public void deleteItem(int itemId) {
-        logger.info("Deleting item with id: {}", itemId);
+        LOGGER.info("Deleting item with id: {}", itemId);
         Optional<Item> item = this.itemDAO.findItem(itemId);
 
         item.ifPresentOrElse(

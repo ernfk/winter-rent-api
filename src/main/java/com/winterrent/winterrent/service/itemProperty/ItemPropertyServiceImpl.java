@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 public class ItemPropertyServiceImpl implements ItemPropertyService {
-    private static final Logger logger = LoggerFactory.getLogger(ItemPropertyServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ItemPropertyServiceImpl.class);
 
     private ItemPropertyDAO itemPropertyDao;
 
@@ -22,7 +22,7 @@ public class ItemPropertyServiceImpl implements ItemPropertyService {
 
     @Override
     public List<ItemProperty> findAll() {
-        logger.info("Find all item properties");
+        LOGGER.info("Find all item properties");
         return itemPropertyDao.findAll();
     }
 }

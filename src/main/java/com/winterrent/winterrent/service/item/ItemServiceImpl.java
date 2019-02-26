@@ -8,7 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -31,8 +33,30 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Item addItem(Item item) {
+        String modelNo = generateModelNo(item);
+        item.setModelNo(modelNo);
+
         LOGGER.info("Adding new item");
         return this.itemDAO.addItem(item);
+    }
+
+    private String generateModelNo(Item item) {
+        String model = Objects.requireNonNull(item.getItemProperties()
+                .stream()
+                .filter(itemProperty ->
+                        itemProperty.getItemPropertyDefinition().getPropertyName().equals("model"))
+                .findFirst()
+                .orElse(null))
+                .getValue();
+
+        String modelFirstLetter = String.valueOf(model.charAt(0));
+        String currentTime = String.valueOf(new Date().getTime());
+        String uniqueNo = currentTime.substring(currentTime.length() - 5);
+        String modelNo = modelFirstLetter + uniqueNo;
+
+        LOGGER.info("Generated model number {} for new item", modelNo);
+
+        return modelNo;
     }
 
     @Override

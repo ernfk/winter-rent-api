@@ -24,6 +24,9 @@ public class Item {
     @JsonManagedReference
     private List<ItemProperty> itemProperties;
 
+    @Column(name="model_no")
+    private String modelNo;
+
     public Item() {
 
     }
@@ -55,6 +58,14 @@ public class Item {
 
     public void setItemProperties(List<ItemProperty> itemProperties) {
         this.itemProperties = itemProperties;
+    }
+
+    public String getModelNo() {
+        return modelNo;
+    }
+
+    public void setModelNo(String modelNo) {
+        this.modelNo = modelNo;
     }
 
     @Override

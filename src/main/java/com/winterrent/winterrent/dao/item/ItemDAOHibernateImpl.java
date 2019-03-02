@@ -54,4 +54,12 @@ public class ItemDAOHibernateImpl implements ItemDAO {
         theQuery.setParameter("itemId", itemId);
         theQuery.executeUpdate();
     }
+
+    @Override
+    @Transactional
+    public Item updateItem(Item item) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        currentSession.saveOrUpdate(item);
+        return item;
+    }
 }

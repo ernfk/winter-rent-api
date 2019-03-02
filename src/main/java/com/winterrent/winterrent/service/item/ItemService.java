@@ -9,4 +9,5 @@ public interface ItemService {
     Item addItem(Item item);
     Item findItem(int itemId);
     void deleteItem(int itemId);
+    Item updateItem(Item item);
 }

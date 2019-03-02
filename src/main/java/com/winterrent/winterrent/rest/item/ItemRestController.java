@@ -41,4 +41,8 @@ public class ItemRestController {
         this.itemService.deleteItem(itemId);
     }
 
+    @PutMapping("/items")
+    Item updateItem(@RequestBody Item item) {
+        return this.itemService.updateItem(item);
+    }
 }

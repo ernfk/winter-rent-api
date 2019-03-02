@@ -83,4 +83,10 @@ public class ItemServiceImpl implements ItemService {
                 });
 
     }
+
+    @Override
+    public Item updateItem(Item item) {
+        LOGGER.info("Editing item with id: {}", item.getId());
+        return this.itemDAO.updateItem(item);
+    }
 }

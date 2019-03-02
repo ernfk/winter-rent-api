@@ -10,4 +10,5 @@ public interface ItemDAO {
     Item addItem(Item item);
     Optional<Item> findItem(int itemId);
     void deleteItem(int itemId);
+    Item updateItem(Item item);
 }

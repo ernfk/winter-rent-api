@@ -44,7 +44,12 @@ public class ItemServiceImpl implements ItemService {
         String model = Objects.requireNonNull(item.getItemProperties()
                 .stream()
                 .filter(itemProperty ->
-                        itemProperty.getItemPropertyDefinition().getPropertyName().equals("model"))
+                        itemProperty
+                                .getItemPropertyDefinition()
+                                .getPropertyName()
+                                .toLowerCase()
+                                .equals("model")
+                )
                 .findFirst()
                 .orElse(null))
                 .getValue();

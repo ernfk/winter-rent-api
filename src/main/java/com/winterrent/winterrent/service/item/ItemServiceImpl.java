@@ -37,7 +37,7 @@ public class ItemServiceImpl implements ItemService {
         item.setModelNo(modelNo);
 
         LOGGER.info("Adding new item");
-        return this.itemDAO.addItem(item);
+        return this.itemDAO.saveOrUpdate(item);
     }
 
     private String generateModelNo(Item item) {
@@ -87,6 +87,6 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public Item updateItem(Item item) {
         LOGGER.info("Editing item with id: {}", item.getId());
-        return this.itemDAO.updateItem(item);
+        return this.itemDAO.saveOrUpdate(item);
     }
 }

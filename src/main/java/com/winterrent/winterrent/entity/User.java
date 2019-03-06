@@ -1,5 +1,7 @@
 package com.winterrent.winterrent.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
@@ -14,6 +16,7 @@ public class User {
     private int id;
 
     @Column(name = "password")
+    @JsonIgnore
     private String password;
 
     @Column(name = "name")

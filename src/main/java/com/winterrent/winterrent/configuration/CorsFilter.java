@@ -1,4 +1,4 @@
-package com.winterrent.winterrent;
+package com.winterrent.winterrent.configuration;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;

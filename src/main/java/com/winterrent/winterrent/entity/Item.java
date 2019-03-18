@@ -27,6 +27,12 @@ public class Item {
     @Column(name="model_no")
     private String modelNo;
 
+    @Column(name = "photo")
+    private byte[] photo;
+
+    @Transient
+    private String filePath;
+
     public Item() {
 
     }
@@ -66,6 +72,22 @@ public class Item {
 
     public void setModelNo(String modelNo) {
         this.modelNo = modelNo;
+    }
+
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
     @Override

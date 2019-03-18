@@ -8,6 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -35,9 +38,30 @@ public class ItemServiceImpl implements ItemService {
     public Item addItem(Item item) {
         String modelNo = generateModelNo(item);
         item.setModelNo(modelNo);
+        try {
+            saveItemWithPhoto(item);
+        } catch (IOException e) {
+            LOGGER.error("Error during saving photo to item");
+        }
 
         LOGGER.info("Adding new item");
         return this.itemDAO.saveOrUpdate(item);
+    }
+
+    private static void saveItemWithPhoto(Item item) throws IOException {
+        byte[] photoBytes = readBytesFromFile(item.getFilePath());
+        item.setPhoto(photoBytes);
+    }
+
+    private static byte[] readBytesFromFile(String photoPath) throws IOException {
+        File inputFile = new File(photoPath);
+        FileInputStream inputStream = new FileInputStream(inputFile);
+
+        byte[] fileBytes = new byte[(int) inputFile.length()];
+        inputStream.read(fileBytes);
+        inputStream.close();
+
+        return fileBytes;
     }
 
     private String generateModelNo(Item item) {

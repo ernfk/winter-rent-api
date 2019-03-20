@@ -16,8 +16,8 @@ public class Image {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "extension")
-    private String extension;
+    @Column(name = "content_type")
+    private String contentType;
 
     @Column(name = "photo")
     private byte[] photo;
@@ -41,12 +41,12 @@ public class Image {
         this.name = name;
     }
 
-    public String getExtension() {
-        return extension;
+    public String getContentType() {
+        return contentType;
     }
 
-    public void setExtension(String extension) {
-        this.extension = extension;
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
     }
 
     public byte[] getPhoto() {
@@ -72,13 +72,13 @@ public class Image {
         Image image = (Image) o;
         return id == image.id &&
                 Objects.equals(name, image.name) &&
-                Objects.equals(extension, image.extension) &&
+                Objects.equals(contentType, image.contentType) &&
                 Arrays.equals(photo, image.photo);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(id, name, extension);
+        int result = Objects.hash(id, name, contentType);
         result = 31 * result + Arrays.hashCode(photo);
         return result;
     }

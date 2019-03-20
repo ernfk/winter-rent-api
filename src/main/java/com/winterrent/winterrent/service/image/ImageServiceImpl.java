@@ -26,12 +26,12 @@ public class ImageServiceImpl implements ImageService {
     public Image addImage(MultipartFile file) {
         Image image = new Image();
 
-        String name = file.getName(); // fix
+        String name = file.getOriginalFilename();
         String type = file.getContentType();
 
         image.setId(0);
         image.setName(name);
-        image.setExtension(type);
+        image.setContentType(type);
 
         try {
             byte[] bytes = file.getBytes();

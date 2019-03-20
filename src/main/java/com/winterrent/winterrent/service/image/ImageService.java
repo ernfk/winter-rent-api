@@ -1,7 +1,8 @@
 package com.winterrent.winterrent.service.image;
 
 import com.winterrent.winterrent.entity.Image;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface ImageService {
-    Image addImage(Image image);
+    Image addImage(MultipartFile file);
 }

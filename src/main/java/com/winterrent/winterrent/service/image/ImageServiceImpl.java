@@ -23,7 +23,7 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public Image addImage(MultipartFile file) {
+    public Image addImage(MultipartFile file, int itemId) {
         Image image = new Image();
 
         String name = file.getOriginalFilename();
@@ -40,7 +40,7 @@ public class ImageServiceImpl implements ImageService {
             e.printStackTrace();
         }
 
-        image.setItemId(62); // fix
+        image.setItemId(itemId);
 
         LOGGER.info("Adding new image with name: {}, type: {}.", name, type);
         return this.imageDAO.addImage(image);

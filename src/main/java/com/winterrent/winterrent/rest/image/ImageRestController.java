@@ -20,8 +20,8 @@ public class ImageRestController {
         this.imageService = imageService;
     }
 
-    @PostMapping("/images")
-    Image addImage(@RequestParam("file") MultipartFile file) {
-        return this.imageService.addImage(file);
+    @PostMapping(path = "/images", consumes = "multipart/form-data")
+    Image addImage(@RequestParam("itemId") int id, @RequestParam("file") MultipartFile file) {
+        return this.imageService.addImage(file, id);
     }
 }

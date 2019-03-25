@@ -3,10 +3,7 @@ package com.winterrent.winterrent.rest.image;
 import com.winterrent.winterrent.entity.Image;
 import com.winterrent.winterrent.service.image.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
@@ -23,5 +20,10 @@ public class ImageRestController {
     @PostMapping(path = "/images", consumes = "multipart/form-data")
     Image addImage(@RequestParam("itemId") int id, @RequestParam("file") MultipartFile file) {
         return this.imageService.addImage(file, id);
+    }
+
+    @GetMapping(path = "/images/{itemId}")
+    Image findImage(@PathVariable int itemId) {
+        return this.imageService.findImage(itemId);
     }
 }

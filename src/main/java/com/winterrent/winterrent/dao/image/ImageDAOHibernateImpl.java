@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.Optional;
 
 @Repository
 public class ImageDAOHibernateImpl implements ImageDAO {
@@ -24,5 +25,18 @@ public class ImageDAOHibernateImpl implements ImageDAO {
         Session currentSession = entityManager.unwrap(Session.class);
         currentSession.saveOrUpdate(image);
         return image;
+    }
+
+    @Override
+    @Transactional
+    public Optional<Image> findImage(int itemId) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        return currentSession
+                .createQuery("from Image as i where i.itemId=:itemId")
+                .setParameter("itemId", itemId)
+                .setMaxResults(1)
+                .getResultList()
+                .stream()
+                .findFirst();
     }
 }

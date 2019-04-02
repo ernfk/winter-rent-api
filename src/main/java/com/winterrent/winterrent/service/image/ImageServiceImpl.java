@@ -48,9 +48,15 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public Image findImage(int itemId) {
+    public Image findImageByItemId(int itemId) {
         LOGGER.info("Getting image by item id: {}", itemId);
-        Optional<Image> opt = this.imageDAO.findImage(itemId);
+        Optional<Image> opt = this.imageDAO.findImageByItemId(itemId);
         return opt.orElse(null);
+    }
+
+    @Override
+    public void deleteImage(int imageId) {
+        LOGGER.info("Deleting image with image id: {}", imageId);
+        this.imageDAO.deleteImage(imageId);
     }
 }

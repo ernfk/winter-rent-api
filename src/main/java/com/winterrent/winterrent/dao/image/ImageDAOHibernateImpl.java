@@ -29,7 +29,7 @@ public class ImageDAOHibernateImpl implements ImageDAO {
 
     @Override
     @Transactional
-    public Optional<Image> findImage(int itemId) {
+    public Optional<Image> findImageByItemId(int itemId) {
         Session currentSession = entityManager.unwrap(Session.class);
         return currentSession
                 .createQuery("from Image as i where i.itemId=:itemId")
@@ -38,5 +38,13 @@ public class ImageDAOHibernateImpl implements ImageDAO {
                 .getResultList()
                 .stream()
                 .findFirst();
+    }
+
+    @Override
+    @Transactional
+    public void deleteImage(int imageId) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Image image = currentSession.find(Image.class, imageId);
+        entityManager.remove(image);
     }
 }

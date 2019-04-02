@@ -5,5 +5,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface ImageService {
     Image addImage(MultipartFile file, int itemId);
-    Image findImage(int itemId);
+    Image findImageByItemId(int itemId);
+    void deleteImage(int imageId);
 }

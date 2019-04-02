@@ -23,7 +23,12 @@ public class ImageRestController {
     }
 
     @GetMapping(path = "/images/{itemId}")
-    Image findImage(@PathVariable int itemId) {
-        return this.imageService.findImage(itemId);
+    Image findImageByItemId(@PathVariable int itemId) {
+        return this.imageService.findImageByItemId(itemId);
+    }
+
+    @DeleteMapping(path = "/images/{imageId}")
+    void deleteImage(@PathVariable int imageId) {
+        this.imageService.deleteImage(imageId);
     }
 }

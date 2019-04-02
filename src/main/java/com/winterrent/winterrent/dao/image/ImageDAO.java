@@ -6,5 +6,6 @@ import java.util.Optional;
 
 public interface ImageDAO {
     Image addImage(Image image);
-    Optional<Image> findImage(int itemId);
+    Optional<Image> findImageByItemId(int itemId);
+    void deleteImage(int imageId);
 }

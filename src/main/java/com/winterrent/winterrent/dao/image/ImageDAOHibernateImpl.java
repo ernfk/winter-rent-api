@@ -47,4 +47,12 @@ public class ImageDAOHibernateImpl implements ImageDAO {
         Image image = currentSession.find(Image.class, imageId);
         entityManager.remove(image);
     }
+
+    @Override
+    @Transactional
+    public Image updateItem(Image image) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        currentSession.saveOrUpdate(image);
+        return image;
+    }
 }

@@ -8,4 +8,5 @@ public interface ImageDAO {
     Image addImage(Image image);
     Optional<Image> findImageByItemId(int itemId);
     void deleteImage(int imageId);
+    Image updateItem(Image image);
 }

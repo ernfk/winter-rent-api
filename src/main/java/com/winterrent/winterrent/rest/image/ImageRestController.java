@@ -31,4 +31,9 @@ public class ImageRestController {
     void deleteImage(@PathVariable int imageId) {
         this.imageService.deleteImage(imageId);
     }
+
+    @PutMapping(path = "images/{imageId}/items/{itemId}", consumes = "multipart/form-data")
+    Image updateImage(@PathVariable("imageId") int imageId, @PathVariable("itemId") int itemId,@RequestParam("file") MultipartFile file) {
+        return this.imageService.updateImage(file, imageId, itemId);
+    }
 }

@@ -59,4 +59,28 @@ public class ImageServiceImpl implements ImageService {
         LOGGER.info("Deleting image with image id: {}", imageId);
         this.imageDAO.deleteImage(imageId);
     }
+
+    @Override
+    public Image updateImage(MultipartFile file, int imageId, int itemId) {
+        Image image = new Image();
+
+        String name = file.getOriginalFilename();
+        String type = file.getContentType();
+
+        image.setId(imageId);
+        image.setName(name);
+        image.setContentType(type);
+
+        try {
+            byte[] bytes = file.getBytes();
+            image.setPhoto(bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        image.setItemId(itemId);
+
+        LOGGER.info("Updating image with id: {}, for item with id: {}", imageId, itemId);
+        return this.imageDAO.updateItem(image);
+    }
 }

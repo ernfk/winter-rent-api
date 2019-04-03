@@ -7,4 +7,5 @@ public interface ImageService {
     Image addImage(MultipartFile file, int itemId);
     Image findImageByItemId(int itemId);
     void deleteImage(int imageId);
+    Image updateImage(MultipartFile file, int imageId, int itemId);
 }

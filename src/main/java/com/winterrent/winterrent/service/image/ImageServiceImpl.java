@@ -25,25 +25,8 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public Image addImage(MultipartFile file, int itemId) {
-        Image image = new Image();
-
-        String name = file.getOriginalFilename();
-        String type = file.getContentType();
-
-        image.setId(0);
-        image.setName(name);
-        image.setContentType(type);
-
-        try {
-            byte[] bytes = file.getBytes();
-            image.setPhoto(bytes);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        image.setItemId(itemId);
-
-        LOGGER.info("Adding new image with name: {}, type: {}.", name, type);
+        Image image = prepareImage(file, 0, itemId);
+        LOGGER.info("Adding new image for item with id: {}", itemId);
         return this.imageDAO.addImage(image);
     }
 
@@ -62,6 +45,12 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public Image updateImage(MultipartFile file, int imageId, int itemId) {
+        Image image = prepareImage(file, imageId, itemId);
+        LOGGER.info("Updating image with id: {}, for item with id: {}", imageId, itemId);
+        return this.imageDAO.updateItem(image);
+    }
+
+    private Image prepareImage(MultipartFile file, int imageId, int itemId) {
         Image image = new Image();
 
         String name = file.getOriginalFilename();
@@ -80,7 +69,6 @@ public class ImageServiceImpl implements ImageService {
 
         image.setItemId(itemId);
 
-        LOGGER.info("Updating image with id: {}, for item with id: {}", imageId, itemId);
-        return this.imageDAO.updateItem(image);
+        return image;
     }
 }

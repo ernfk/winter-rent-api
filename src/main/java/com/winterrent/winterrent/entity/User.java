@@ -12,6 +12,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String name;
+
     private String username;
 
     private String email;
@@ -22,17 +24,18 @@ public class User {
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> role = new HashSet<>();
+    private Set<Role> roles = new HashSet<>();
 
     public User() {
 
     }
 
-    public User(String username, String email, String password, Set<Role> role) {
+    public User(String username, String name, String email, String password, Set<Role> roles) {
         this.username = username;
+        this.name = name;
         this.email = email;
         this.password = password;
-        this.role = role;
+        this.roles = roles;
     }
 
     public Long getId() {
@@ -51,6 +54,14 @@ public class User {
         this.username = username;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -67,11 +78,11 @@ public class User {
         this.password = password;
     }
 
-    public Set<Role> getRole() {
-        return role;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(Set<Role> role) {
-        this.role = role;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

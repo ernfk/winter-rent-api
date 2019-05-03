@@ -2,7 +2,7 @@ package com.winterrent.winterrent.service.item;
 
 import com.winterrent.winterrent.dao.item.ItemDAO;
 import com.winterrent.winterrent.entity.Item;
-import com.winterrent.winterrent.service.item.exceptions.ItemNotFound;
+import com.winterrent.winterrent.rest.exceptions.ItemNotFound;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

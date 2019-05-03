@@ -1,7 +1,7 @@
 package com.winterrent.winterrent.rest;
 
 import com.winterrent.winterrent.rest.responses.ErrorResponse;
-import com.winterrent.winterrent.service.item.exceptions.ItemNotFound;
+import com.winterrent.winterrent.rest.exceptions.ItemNotFound;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

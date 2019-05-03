@@ -5,14 +5,17 @@ import com.winterrent.winterrent.dao.user.UserDAO;
 import com.winterrent.winterrent.entity.Role;
 import com.winterrent.winterrent.entity.RoleName;
 import com.winterrent.winterrent.entity.User;
-import com.winterrent.winterrent.exception.AppException;
 import com.winterrent.winterrent.payload.ApiResponse;
 import com.winterrent.winterrent.payload.JwtAuthenticationResponse;
 import com.winterrent.winterrent.payload.LoginRequest;
 import com.winterrent.winterrent.payload.SignUpRequest;
+import com.winterrent.winterrent.rest.exceptions.AppException;
 import com.winterrent.winterrent.security.JwtTokenProvider;
+import com.winterrent.winterrent.rest.exceptions.EmailAlreadyExists;
+import com.winterrent.winterrent.rest.exceptions.UserAlreadyExists;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -32,6 +35,8 @@ import java.util.Collections;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthenticationController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationController.class);
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -67,16 +72,14 @@ public class AuthenticationController {
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
         if (userDAO.existsByUsername(signUpRequest.getUsername())) {
-            return new ResponseEntity(new ApiResponse(false, "Username is already taken!"),
-                    HttpStatus.BAD_REQUEST);
+            throw new UserAlreadyExists("Username already in use!");
         }
 
         if (userDAO.existsByEmail(signUpRequest.getEmail())) {
-            return new ResponseEntity(new ApiResponse(false, "Email Address already in use!"),
-                    HttpStatus.BAD_REQUEST);
+            throw new EmailAlreadyExists("Email address already in use!");
         }
 
-        // Creating user's account
+        LOGGER.info("Creating new account");
         User user = new User(signUpRequest.getName(), signUpRequest.getUsername(),
                 signUpRequest.getEmail(), signUpRequest.getPassword());
 

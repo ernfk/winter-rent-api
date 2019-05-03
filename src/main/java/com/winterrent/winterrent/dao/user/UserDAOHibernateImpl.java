@@ -2,18 +2,22 @@ package com.winterrent.winterrent.dao.user;
 
 import com.winterrent.winterrent.entity.User;
 import org.hibernate.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public class UserDAOHibernateImpl implements UserDAO{
 
     private EntityManager entityManager;
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserDAOHibernateImpl.class);
 
     @Autowired
     public UserDAOHibernateImpl(EntityManager theEntityManager) {
@@ -42,17 +46,23 @@ public class UserDAOHibernateImpl implements UserDAO{
     @Override
     @Transactional
     public boolean existsByUsername(String username) {
+        LOGGER.info("Checking if user already exists with username: {}", username);
         Session currentSession = entityManager.unwrap(Session.class);
-        User user = currentSession.get(User.class, username);
-        return user.getId() != null;
+        Query query = currentSession.createQuery("from User u where u.username = :username");
+        query.setParameter("username", username);
+        List<User> userList = query.getResultList();
+        return !userList.isEmpty();
     }
 
     @Override
     @Transactional
     public boolean existsByEmail(String email) {
+        LOGGER.info("Checking if user already exists with email: {}", email);
         Session currentSession = entityManager.unwrap(Session.class);
-        User user = currentSession.get(User.class, email);
-        return user.getId() != null;
+        Query query = currentSession.createQuery("from User u where u.email = :email");
+        query.setParameter("email", email);
+        List<User> userList = query.getResultList();
+        return !userList.isEmpty();
     }
 
     @Override

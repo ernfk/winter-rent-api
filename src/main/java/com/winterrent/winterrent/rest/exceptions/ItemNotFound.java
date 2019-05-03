@@ -1,4 +1,4 @@
-package com.winterrent.winterrent.service.item.exceptions;
+package com.winterrent.winterrent.rest.exceptions;
 
 public class ItemNotFound extends RuntimeException {
     public ItemNotFound() {

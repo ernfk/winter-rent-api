@@ -1,6 +1,8 @@
 package com.winterrent.winterrent.configuration;
 
 import com.winterrent.winterrent.security.JwtAuthenticationEntryPoint;
+import com.winterrent.winterrent.security.JwtAuthenticationFilter;
+import com.winterrent.winterrent.service.user.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

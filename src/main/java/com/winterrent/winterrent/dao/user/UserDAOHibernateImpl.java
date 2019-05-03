@@ -27,17 +27,19 @@ public class UserDAOHibernateImpl implements UserDAO{
     @Override
     @Transactional
     public Optional<User> findByUsernameOrEmail(String username, String email) {
+        LOGGER.info("Finding user by username or email: {}", username);
         Session currentSession = entityManager.unwrap(Session.class);
         Query query = currentSession.createQuery("from User u where u.email = :email OR u.username = :username");
         query.setParameter("email", email);
         query.setParameter("username", username);
-        User user = (User) query.getSingleResult();
-        return Optional.ofNullable(user);
+        List<User> userList = query.getResultList();
+        return userList.isEmpty() ? Optional.empty() : Optional.ofNullable(userList.get(0));
     }
 
     @Override
     @Transactional
     public Optional<User> findById(Long id) {
+        LOGGER.info("Finding user by id: {}", id);
         Session currentSession = entityManager.unwrap(Session.class);
         User user = currentSession.get(User.class, id);
         return Optional.ofNullable(user);
@@ -68,6 +70,7 @@ public class UserDAOHibernateImpl implements UserDAO{
     @Override
     @Transactional
     public User save(User user) {
+        LOGGER.info("Saving new user.");
         Session currentSession = entityManager.unwrap(Session.class);
         currentSession.saveOrUpdate(user);
         return user;

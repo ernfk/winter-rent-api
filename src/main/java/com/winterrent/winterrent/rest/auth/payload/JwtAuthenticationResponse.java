@@ -1,4 +1,4 @@
-package com.winterrent.winterrent.payload;
+package com.winterrent.winterrent.rest.auth.payload;
 
 public class JwtAuthenticationResponse {
     private String accessToken;

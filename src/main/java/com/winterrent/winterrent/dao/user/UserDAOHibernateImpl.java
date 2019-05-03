@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Repository
@@ -20,6 +21,7 @@ public class UserDAOHibernateImpl implements UserDAO{
     }
 
     @Override
+    @Transactional
     public Optional<User> findByUsernameOrEmail(String username, String email) {
         Session currentSession = entityManager.unwrap(Session.class);
         Query query = currentSession.createQuery("from User u where u.email = :email OR u.username = :username");
@@ -30,6 +32,7 @@ public class UserDAOHibernateImpl implements UserDAO{
     }
 
     @Override
+    @Transactional
     public Optional<User> findById(Long id) {
         Session currentSession = entityManager.unwrap(Session.class);
         User user = currentSession.get(User.class, id);
@@ -37,6 +40,7 @@ public class UserDAOHibernateImpl implements UserDAO{
     }
 
     @Override
+    @Transactional
     public boolean existsByUsername(String username) {
         Session currentSession = entityManager.unwrap(Session.class);
         User user = currentSession.get(User.class, username);
@@ -44,6 +48,7 @@ public class UserDAOHibernateImpl implements UserDAO{
     }
 
     @Override
+    @Transactional
     public boolean existsByEmail(String email) {
         Session currentSession = entityManager.unwrap(Session.class);
         User user = currentSession.get(User.class, email);
@@ -51,6 +56,7 @@ public class UserDAOHibernateImpl implements UserDAO{
     }
 
     @Override
+    @Transactional
     public User save(User user) {
         Session currentSession = entityManager.unwrap(Session.class);
         currentSession.saveOrUpdate(user);

@@ -14,13 +14,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class UserDAOHibernateImpl implements UserDAO{
+public class UserDAOImpl implements UserDAO{
 
     private EntityManager entityManager;
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserDAOHibernateImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserDAOImpl.class);
 
     @Autowired
-    public UserDAOHibernateImpl(EntityManager theEntityManager) {
+    public UserDAOImpl(EntityManager theEntityManager) {
         this.entityManager = theEntityManager;
     }
 

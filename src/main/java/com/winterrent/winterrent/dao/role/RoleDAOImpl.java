@@ -14,13 +14,13 @@ import javax.persistence.EntityManager;
 import java.util.Optional;
 
 @Repository
-public class RoleDAOHibernateImpl implements RoleDAO {
+public class RoleDAOImpl implements RoleDAO {
 
     private EntityManager entityManager;
-    private static final Logger LOGGER = LoggerFactory.getLogger(RoleDAOHibernateImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RoleDAOImpl.class);
 
     @Autowired
-    public RoleDAOHibernateImpl(EntityManager theEntityManager) {
+    public RoleDAOImpl(EntityManager theEntityManager) {
         this.entityManager = theEntityManager;
     }
 

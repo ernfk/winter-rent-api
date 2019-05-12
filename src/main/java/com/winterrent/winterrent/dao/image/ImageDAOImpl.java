@@ -10,12 +10,12 @@ import javax.persistence.EntityManager;
 import java.util.Optional;
 
 @Repository
-public class ImageDAOHibernateImpl implements ImageDAO {
+public class ImageDAOImpl implements ImageDAO {
 
     private EntityManager entityManager;
 
     @Autowired
-    public ImageDAOHibernateImpl(EntityManager entityManager) {
+    public ImageDAOImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 

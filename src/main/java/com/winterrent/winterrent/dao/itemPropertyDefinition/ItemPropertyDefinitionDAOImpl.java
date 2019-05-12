@@ -12,12 +12,12 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 @Repository
-public class ItemPropertyDefinitionDAOHibernateImpl implements ItemPropertyDefinitionDAO {
+public class ItemPropertyDefinitionDAOImpl implements ItemPropertyDefinitionDAO {
 
     private EntityManager entityManager;
 
     @Autowired
-    public ItemPropertyDefinitionDAOHibernateImpl(EntityManager theEntityManager) {
+    public ItemPropertyDefinitionDAOImpl(EntityManager theEntityManager) {
         this.entityManager = theEntityManager;
     }
 

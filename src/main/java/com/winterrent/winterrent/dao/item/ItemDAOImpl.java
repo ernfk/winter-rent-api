@@ -12,12 +12,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class ItemDAOHibernateImpl implements ItemDAO {
+public class ItemDAOImpl implements ItemDAO {
 
     private EntityManager entityManager;
 
     @Autowired
-    public ItemDAOHibernateImpl(EntityManager theEntityManager) {
+    public ItemDAOImpl(EntityManager theEntityManager) {
         this.entityManager = theEntityManager;
     }
 

@@ -27,14 +27,17 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     // For JWTAuthenticationFilter
+    //TODO: Refactor change name,
     public UserDetails loadUserById(Long id) {
         User user = userDAO.findById(id).orElseThrow(() -> new UsernameNotFoundException("User not found with id: " + id));
 
         return UserPrincipal.create(user);
     }
 
+    //TODO: Add method to get User, refactor this method name
     public UserProfile getUserProfileByUserId(Long userId) {
-        Optional<UserProfile> opt = this.userDAO.getUserProfileByUserId(userId);
+        User user = userDAO.findById(userId).orElseThrow(() -> new UsernameNotFoundException("User not found with id: " + userId));
+        Optional<UserProfile> opt = this.userDAO.getUserProfileByUserId(user);
 
         return opt.orElse(null);
     }

@@ -79,12 +79,12 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     @Transactional
-    public Optional<UserProfile> getUserProfileByUserId(long userId) {
-        LOGGER.info("Getting user profile by id:{}", userId);
+    public Optional<UserProfile> getUserProfileByUserId(User user) {
+        LOGGER.info("Getting user profile by id:{}", user.getId());
         Session currentSession = entityManager.unwrap(Session.class);
         return currentSession
-                .createQuery("from UserProfile as up where up.user_id=:userId")
-                .setParameter("userId", userId)
+                .createQuery("from UserProfile as up where up.user=:user")
+                .setParameter("user", user)
                 .setMaxResults(1)
                 .getResultList()
                 .stream()

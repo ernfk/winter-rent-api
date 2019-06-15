@@ -5,6 +5,7 @@ import com.winterrent.winterrent.dao.user.UserDAO;
 import com.winterrent.winterrent.entity.Role;
 import com.winterrent.winterrent.entity.RoleName;
 import com.winterrent.winterrent.entity.User;
+import com.winterrent.winterrent.entity.UserProfile;
 import com.winterrent.winterrent.rest.auth.payload.ApiResponse;
 import com.winterrent.winterrent.rest.auth.payload.JwtAuthenticationResponse;
 import com.winterrent.winterrent.rest.auth.payload.LoginRequest;
@@ -79,11 +80,7 @@ public class AuthenticationController {
             throw new EmailAlreadyExists("Email address already in use!");
         }
 
-        LOGGER.info("Creating new account");
-        User user = new User(signUpRequest.getName(), signUpRequest.getUsername(),
-                signUpRequest.getEmail(), signUpRequest.getPassword());
-
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        User user = createUser(signUpRequest);
 
         Role userRole = roleDAO
                 .findByName(RoleName.ROLE_USER)
@@ -98,5 +95,39 @@ public class AuthenticationController {
                 .buildAndExpand(result.getUsername()).toUri();
 
         return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully"));
+    }
+
+    private User createUser(SignUpRequest request) {
+        LOGGER.info("Creating new user");
+
+        UserProfile userProfile = createUserProfile();
+        userProfile.setName(request.getName());
+
+        User user = new User();
+        user.setName(request.getName());
+        user.setUsername(request.getUsername());
+        user.setEmail(request.getEmail());
+        user.setPassword(request.getPassword());
+        user.setUserProfile(userProfile);
+
+        userProfile.setUser(user);
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        return user;
+    }
+
+    private UserProfile createUserProfile() {
+        LOGGER.info("Creating user profile");
+
+        UserProfile userProfile = new UserProfile();
+        userProfile.setLastName("");
+        userProfile.setCity("");
+        userProfile.setStreet("");
+        userProfile.setPhoneNo(0);
+        userProfile.setPostalCode("");
+        userProfile.setFlatNo(0);
+
+        return userProfile;
     }
 }

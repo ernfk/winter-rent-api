@@ -33,6 +33,15 @@ public class User {
 
     }
 
+    public User(String name, String username, String email, String password, Set<Role> roles, UserProfile userProfile) {
+        this.name = name;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
+        this.userProfile = userProfile;
+    }
+
     public User(String username, String name, String email, String password, Set<Role> roles) {
         this.username = username;
         this.name = name;
@@ -46,6 +55,14 @@ public class User {
         this.name = name;
         this.email = email;
         this.password = password;
+    }
+
+    public UserProfile getUserProfile() {
+        return userProfile;
+    }
+
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
     }
 
     public Long getId() {

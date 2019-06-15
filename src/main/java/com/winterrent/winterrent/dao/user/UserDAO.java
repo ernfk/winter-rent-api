@@ -1,6 +1,7 @@
 package com.winterrent.winterrent.dao.user;
 
 import com.winterrent.winterrent.entity.User;
+import com.winterrent.winterrent.entity.UserProfile;
 
 import java.util.Optional;
 
@@ -10,4 +11,5 @@ public interface UserDAO {
     boolean existsByUsername(String username);
     boolean existsByEmail(String email);
     User save(User user);
+    Optional<UserProfile> getUserProfileByUserId(long userId);
 }

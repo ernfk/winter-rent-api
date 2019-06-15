@@ -1,6 +1,7 @@
 package com.winterrent.winterrent.dao.user;
 
 import com.winterrent.winterrent.entity.User;
+import com.winterrent.winterrent.entity.UserProfile;
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class UserDAOImpl implements UserDAO{
+public class UserDAOImpl implements UserDAO {
 
     private EntityManager entityManager;
     private static final Logger LOGGER = LoggerFactory.getLogger(UserDAOImpl.class);
@@ -74,5 +75,20 @@ public class UserDAOImpl implements UserDAO{
         Session currentSession = entityManager.unwrap(Session.class);
         currentSession.saveOrUpdate(user);
         return user;
+    }
+
+    @Override
+    @Transactional
+    public Optional<UserProfile> getUserProfileByUserId(long userId) {
+        LOGGER.info("Getting user profile by id:{}", userId);
+        Session currentSession = entityManager.unwrap(Session.class);
+        return currentSession
+                .createQuery("from UserProfile as up where up.user_id=:userId")
+                .setParameter("userId", userId)
+                .setMaxResults(1)
+                .getResultList()
+                .stream()
+                .findFirst();
+
     }
 }

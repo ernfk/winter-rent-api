@@ -11,5 +11,5 @@ public interface UserDAO {
     boolean existsByUsername(String username);
     boolean existsByEmail(String email);
     User save(User user);
-    Optional<UserProfile> getUserProfileByUserId(User user);
+    Optional<UserProfile> getUserProfileByUser(User user);
 }

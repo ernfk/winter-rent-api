@@ -79,7 +79,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     @Transactional
-    public Optional<UserProfile> getUserProfileByUserId(User user) {
+    public Optional<UserProfile> getUserProfileByUser(User user) {
         LOGGER.info("Getting user profile by id:{}", user.getId());
         Session currentSession = entityManager.unwrap(Session.class);
         return currentSession
@@ -89,6 +89,5 @@ public class UserDAOImpl implements UserDAO {
                 .getResultList()
                 .stream()
                 .findFirst();
-
     }
 }

@@ -35,9 +35,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     //TODO: Add method to get User, refactor this method name
-    public UserProfile getUserProfileByUserId(Long userId) {
-        User user = userDAO.findById(userId).orElseThrow(() -> new UsernameNotFoundException("User not found with id: " + userId));
-        Optional<UserProfile> opt = this.userDAO.getUserProfileByUserId(user);
+    public UserProfile getUserProfileByUsername(String username) {
+        User user = userDAO.findByUsernameOrEmail(username, username).orElseThrow(() -> new UsernameNotFoundException("User not found with user name: " + username));
+        Optional<UserProfile> opt = this.userDAO.getUserProfileByUser(user);
 
         return opt.orElse(null);
     }

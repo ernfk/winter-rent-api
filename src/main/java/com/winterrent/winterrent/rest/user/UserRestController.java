@@ -5,10 +5,7 @@ import com.winterrent.winterrent.service.user.CustomUserDetailsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
@@ -28,6 +25,13 @@ public class UserRestController {
     UserProfile getUserProfileByUsername(@PathVariable String username) {
         LOGGER.info("Getting user profile by username: {}", username);
         return userDetailsService.getUserProfileByUsername(username);
+    }
+
+    @PutMapping("/profile/{username}")
+    // TODO: Preauthorized
+    UserProfile updateUserProfile(@RequestBody UserProfile userProfile, @PathVariable String username ) {
+        LOGGER.info("Updating user profile for: {}", username);
+        return userDetailsService.updateUserProfile(userProfile, username);
     }
 
 }

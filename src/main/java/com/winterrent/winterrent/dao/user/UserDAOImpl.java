@@ -90,4 +90,13 @@ public class UserDAOImpl implements UserDAO {
                 .stream()
                 .findFirst();
     }
+
+    @Override
+    @Transactional
+    public UserProfile updateUserProfile(UserProfile userProfile, String username) {
+        LOGGER.info("Updating user profile: {}", username);
+        Session currentSession = entityManager.unwrap(Session.class);
+        currentSession.update(userProfile);
+        return userProfile;
+    }
 }

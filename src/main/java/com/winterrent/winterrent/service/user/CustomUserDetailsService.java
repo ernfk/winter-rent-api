@@ -41,4 +41,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         return opt.orElse(null);
     }
+
+    public UserProfile updateUserProfile(UserProfile userProfile, String username) {
+        return userDAO.updateUserProfile(userProfile, username);
+    }
 }

@@ -43,6 +43,8 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     public UserProfile updateUserProfile(UserProfile userProfile, String username) {
+        User user = userDAO.findByUsernameOrEmail(username, username).orElseThrow(() -> new UsernameNotFoundException("User not found with user name: " + username));
+        userProfile.setUser(user);
         return userDAO.updateUserProfile(userProfile, username);
     }
 }

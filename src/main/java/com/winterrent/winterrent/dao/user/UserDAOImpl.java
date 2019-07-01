@@ -96,7 +96,7 @@ public class UserDAOImpl implements UserDAO {
     public UserProfile updateUserProfile(UserProfile userProfile, String username) {
         LOGGER.info("Updating user profile: {}", username);
         Session currentSession = entityManager.unwrap(Session.class);
-        currentSession.update(userProfile);
+        currentSession.merge(userProfile);
         return userProfile;
     }
 }

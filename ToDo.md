@@ -3,5 +3,6 @@ Logging with security
 Optimistic lock
 JMeter
 think of naming,
-user refactor
+refactor authentication controller
 change the responses, => dto, msg, status
+refactor items

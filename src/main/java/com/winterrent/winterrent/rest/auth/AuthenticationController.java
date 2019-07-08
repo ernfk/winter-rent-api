@@ -11,17 +11,13 @@ import com.winterrent.winterrent.rest.auth.payload.JwtAuthenticationResponse;
 import com.winterrent.winterrent.rest.auth.payload.LoginRequest;
 import com.winterrent.winterrent.rest.auth.payload.SignUpRequest;
 import com.winterrent.winterrent.rest.exceptions.AppException;
-import com.winterrent.winterrent.security.JwtTokenProvider;
 import com.winterrent.winterrent.rest.exceptions.EmailAlreadyExists;
 import com.winterrent.winterrent.rest.exceptions.UserAlreadyExists;
+import com.winterrent.winterrent.service.authentication.AuthenticationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,8 +35,7 @@ public class AuthenticationController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationController.class);
 
-    @Autowired
-    AuthenticationManager authenticationManager;
+    private AuthenticationService authenticationService;
 
     @Autowired
     UserDAO userDAO;
@@ -52,21 +47,13 @@ public class AuthenticationController {
     PasswordEncoder passwordEncoder;
 
     @Autowired
-    JwtTokenProvider tokenProvider;
+    public AuthenticationController(AuthenticationService theAuthenticationService) {
+        this.authenticationService = theAuthenticationService;
+    }
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginRequest.getUsernameOrEmail(),
-                        loginRequest.getPassword()
-                )
-        );
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        String jwt = tokenProvider.generateToken(authentication);
+        String jwt = authenticationService.getJWT(loginRequest);
         return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
     }
 

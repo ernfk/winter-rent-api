@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class UserRestController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserRestController.class);
     private CustomUserDetailsService userDetailsService;
 
     @Autowired
@@ -18,7 +19,6 @@ public class UserRestController {
         this.userDetailsService = customUserDetailsService;
     }
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserRestController.class);
 
     @GetMapping("/profile/{username}")
         //TODO: PreAuthorized
@@ -34,4 +34,9 @@ public class UserRestController {
         return userDetailsService.updateUserProfile(userProfile, username);
     }
 
+    @GetMapping("/profile/role/{username}")
+    public boolean isUserAdmin(@PathVariable String username) {
+        LOGGER.info("Checking if user: {} is admin", username);
+        return userDetailsService.isUserAdmin(username);
+    }
 }

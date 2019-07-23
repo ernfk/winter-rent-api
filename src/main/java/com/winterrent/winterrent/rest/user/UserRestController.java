@@ -34,7 +34,7 @@ public class UserRestController {
         return userDetailsService.updateUserProfile(userProfile, username);
     }
 
-    @GetMapping("/profile/role/{username}")
+    @GetMapping("/profile/{username}/role")
     public boolean isUserAdmin(@PathVariable String username) {
         LOGGER.info("Checking if user: {} is admin", username);
         return userDetailsService.isUserAdmin(username);

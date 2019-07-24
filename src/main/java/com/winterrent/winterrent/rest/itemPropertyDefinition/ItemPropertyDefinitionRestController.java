@@ -4,6 +4,7 @@ import com.winterrent.winterrent.entity.ItemPropertyDefinition;
 import com.winterrent.winterrent.entity.ItemType;
 import com.winterrent.winterrent.service.itemPropertyDefinition.ItemPropertyDefinitionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,11 +24,13 @@ public class ItemPropertyDefinitionRestController {
     }
 
     @GetMapping("/itemPropertyDefinitions")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     List<ItemPropertyDefinition> findAll() {
         return this.itemPropertyDefinitionService.findAll();
     }
 
     @GetMapping("/itemPropertyDefinitions/itemType/{itemType}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     List<ItemPropertyDefinition> findByItemType(@PathVariable ItemType itemType) {
         return this.itemPropertyDefinitionService.findByItemType(itemType);
     }

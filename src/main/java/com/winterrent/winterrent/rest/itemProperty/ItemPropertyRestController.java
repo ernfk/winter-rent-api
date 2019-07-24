@@ -3,6 +3,7 @@ package com.winterrent.winterrent.rest.itemProperty;
 import com.winterrent.winterrent.entity.ItemProperty;
 import com.winterrent.winterrent.service.itemProperty.ItemPropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +21,7 @@ public class ItemPropertyRestController {
     }
 
     @GetMapping("/itemProperties")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     List<ItemProperty> findAll() {
         return this.itemPropertyService.findAll();
     }

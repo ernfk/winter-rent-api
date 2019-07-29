@@ -1,6 +1,6 @@
 package com.winterrent.winterrent.rest.item;
 
-import com.winterrent.winterrent.converters.ItemToItemDTO;
+import com.winterrent.winterrent.converters.ItemToItemDTOConverter;
 import com.winterrent.winterrent.dto.ItemDTO;
 import com.winterrent.winterrent.entity.Item;
 import com.winterrent.winterrent.service.item.ItemService;
@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("/api")
 public class ItemRestController {
 
-    private static final ItemToItemDTO ITEM_TO_ITEM_DTO_CONVERTER = new ItemToItemDTO();
+    private static final ItemToItemDTOConverter ITEM_TO_ITEM_DTO_CONVERTER = new ItemToItemDTOConverter();
     private ItemService itemService;
 
     @Autowired
@@ -40,7 +40,7 @@ public class ItemRestController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     ItemDTO findItem(@PathVariable int itemId) {
         Item item = this.itemService.findItem(itemId);
-        return ITEM_TO_ITEM_DTO_CONVERTER.convertDTO(item);
+        return ITEM_TO_ITEM_DTO_CONVERTER.createFromEntity(item);
     }
 
     @DeleteMapping("items/{itemId}")

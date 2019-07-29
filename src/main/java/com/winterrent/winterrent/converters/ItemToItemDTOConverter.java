@@ -8,9 +8,10 @@ import com.winterrent.winterrent.entity.ItemProperty;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ItemToItemDTO {
+public class ItemToItemDTOConverter implements GenericConverter<Item, ItemDTO> {
 
-    public ItemDTO convertDTO(Item item) {
+    @Override
+    public ItemDTO createFromEntity(Item item) {
         ItemDTO itemDTO = new ItemDTO();
 
         itemDTO.setId(item.getId());
@@ -31,5 +32,10 @@ public class ItemToItemDTO {
                     return itemPropertyDTO;
                 })
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Item createFromDTO(ItemDTO dto) {
+        throw new IllegalArgumentException("Not implemented yet");
     }
 }

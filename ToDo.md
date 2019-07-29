@@ -1,9 +1,12 @@
+1.Features to practise
+
 JMS - somebody took
 Logging with security
 Optimistic lock
 JMeter
-think of naming,
+
+2. Things to do
+
 change the responses, => dto, msg, status
-refactor items
-user server-side session instead of local storage on ui for tokens and username
-refactor user admin checking and resources
+test item converter
+refactor items -> update (duplicates the same fields)

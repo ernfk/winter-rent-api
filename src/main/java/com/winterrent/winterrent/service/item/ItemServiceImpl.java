@@ -1,10 +1,7 @@
 package com.winterrent.winterrent.service.item;
 
 import com.winterrent.winterrent.dao.item.ItemDAO;
-import com.winterrent.winterrent.dto.ItemDTO;
-import com.winterrent.winterrent.dto.ItemPropertyDTO;
 import com.winterrent.winterrent.entity.Item;
-import com.winterrent.winterrent.entity.ItemProperty;
 import com.winterrent.winterrent.rest.exceptions.ItemNotFound;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +12,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ItemServiceImpl implements ItemService {
@@ -69,29 +65,10 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public ItemDTO findItem(int itemId) {
+    public Item findItem(int itemId) {
         LOGGER.info("Finding item with id: {}", itemId);
         Optional<Item> item = this.itemDAO.findItem(itemId);
-        return getItemDTO(item.orElseThrow(() -> new ItemNotFound("The item with id: " + itemId + " was not found")));
-    }
-
-    private ItemDTO getItemDTO(Item item) {
-        ItemDTO itemDTO = new ItemDTO();
-        itemDTO.setId(item.getId());
-        itemDTO.setModelNo(item.getModelNo());
-        itemDTO.setItemType(item.getItemType());
-        itemDTO.setItemProperties(getItemProperties(item.getItemProperties()));
-        return itemDTO;
-    }
-
-    private List<ItemPropertyDTO> getItemProperties(List<ItemProperty> itemProperties) {
-        return itemProperties.stream().map(itemProperty -> {
-            ItemPropertyDTO itemPropertyDTO = new ItemPropertyDTO();
-            itemPropertyDTO.setId(itemProperty.getId());
-            itemPropertyDTO.setProperty(itemProperty.getItemPropertyDefinition().getPropertyName());
-            itemPropertyDTO.setValue(itemProperty.getValue());
-            return itemPropertyDTO;
-        }).collect(Collectors.toList());
+        return item.orElseThrow(() -> new ItemNotFound("The item with id: " + itemId + " was not found"));
     }
 
     @Override

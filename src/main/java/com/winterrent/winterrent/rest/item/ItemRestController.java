@@ -1,5 +1,6 @@
 package com.winterrent.winterrent.rest.item;
 
+import com.winterrent.winterrent.dto.ItemDTO;
 import com.winterrent.winterrent.entity.Item;
 import com.winterrent.winterrent.service.item.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class ItemRestController {
 
     @GetMapping("items/{itemId}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    Item findItem(@PathVariable int itemId) {
+    ItemDTO findItem(@PathVariable int itemId) {
         return this.itemService.findItem(itemId);
     }
 

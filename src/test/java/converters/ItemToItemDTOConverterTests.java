@@ -106,6 +106,7 @@ public class ItemToItemDTOConverterTests {
         assertEquals("Model DTO", result.getModelNo());
         assertEquals("Length", result.getItemProperties().get(0).getItemPropertyDefinition().getPropertyName());
         assertEquals(999, result.getItemProperties().get(0).getItemPropertyDefinition().getId());
+        assertEquals(100, result.getItemProperties().get(0).getItem().getId());
     }
 
     @Test

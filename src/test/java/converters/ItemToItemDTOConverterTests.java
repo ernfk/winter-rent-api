@@ -7,6 +7,7 @@ import com.winterrent.winterrent.entity.Item;
 import com.winterrent.winterrent.entity.ItemProperty;
 import com.winterrent.winterrent.entity.ItemPropertyDefinition;
 import com.winterrent.winterrent.entity.ItemType;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -21,8 +22,11 @@ public class ItemToItemDTOConverterTests {
 
     private static ItemToItemDTOConverter ITEM_TO_ITEM_DTO_CONVERTER = new ItemToItemDTOConverter();
 
-    @Test
-    public void shouldConvertItemToItemDTO() {
+    private Item item;
+    private Item itemTwo;
+
+    @Before
+    public void setUp() {
         ItemPropertyDefinition itemPropertyDefinition = new ItemPropertyDefinition();
         itemPropertyDefinition.setItemType(ItemType.SKI);
         itemPropertyDefinition.setId(0);
@@ -44,12 +48,21 @@ public class ItemToItemDTOConverterTests {
         itemProperties.add(itemProperty);
         itemProperties.add(itemPropertyTwo);
 
-        Item item = new Item();
+        item = new Item();
         item.setId(2);
         item.setModelNo("Model");
         item.setItemType(ItemType.SKI);
         item.setItemProperties(itemProperties);
 
+        itemTwo = new Item();
+        itemTwo.setId(22);
+        itemTwo.setModelNo("Model Two");
+        itemTwo.setItemType(ItemType.BOARD);
+        itemTwo.setItemProperties(itemProperties);
+    }
+
+    @Test
+    public void shouldConvertItemToItemDTO() {
         ItemDTO result = ITEM_TO_ITEM_DTO_CONVERTER.createFromEntity(item);
 
         assertEquals(2, result.getId());
@@ -91,4 +104,14 @@ public class ItemToItemDTOConverterTests {
         assertEquals("Length", result.getItemProperties().get(0).getItemPropertyDefinition().getPropertyName());
     }
 
+    @Test
+    public void shouldConvertListOfItemsToListOfItemDTOs() {
+        List<Item> items = new ArrayList<>();
+        items.add(item);
+        items.add(itemTwo);
+
+        List<ItemDTO> result = ITEM_TO_ITEM_DTO_CONVERTER.createListFromEntities(items);
+
+        assertEquals(2, result.size());
+    }
 }

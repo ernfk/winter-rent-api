@@ -48,8 +48,10 @@ public class ItemRestController {
 
     @PutMapping("/items")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    Item updateItem(@RequestBody Item item) {
-        return this.itemService.updateItem(item);
+    ItemDTO updateItem(@RequestBody ItemDTO itemDTO) {
+        Item item = ITEM_TO_ITEM_DTO_CONVERTER.createFromDTO(itemDTO);
+        Item result = this.itemService.updateItem(item);
+        return ITEM_TO_ITEM_DTO_CONVERTER.createFromEntity(result);
     }
 
     @DeleteMapping("items/{itemId}")

@@ -25,8 +25,9 @@ public class ItemRestController {
 
     @GetMapping("/items")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    List<Item> findAll() {
-        return this.itemService.findAll();
+    List<ItemDTO> findAll() {
+        List<Item> items = this.itemService.findAll();
+        return ITEM_TO_ITEM_DTO_CONVERTER.createListFromEntities(items);
     }
 
     @PostMapping("/items")
@@ -43,6 +44,12 @@ public class ItemRestController {
         return ITEM_TO_ITEM_DTO_CONVERTER.createFromEntity(item);
     }
 
+    @PutMapping("/items")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    Item updateItem(@RequestBody Item item) {
+        return this.itemService.updateItem(item);
+    }
+
     @DeleteMapping("items/{itemId}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -50,9 +57,4 @@ public class ItemRestController {
         this.itemService.deleteItem(itemId);
     }
 
-    @PutMapping("/items")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    Item updateItem(@RequestBody Item item) {
-        return this.itemService.updateItem(item);
-    }
 }

@@ -32,9 +32,11 @@ public class ItemRestController {
 
     @PostMapping("/items")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    Item addItem(@RequestBody Item item) {
-        item.setId(0);
-        return this.itemService.addItem(item);
+    ItemDTO addItem(@RequestBody ItemDTO itemDTO) {
+        itemDTO.setId(0);
+        Item item = ITEM_TO_ITEM_DTO_CONVERTER.createFromDTO(itemDTO);
+        Item result = this.itemService.addItem(item);
+        return ITEM_TO_ITEM_DTO_CONVERTER.createFromEntity(result);
     }
 
     @GetMapping("items/{itemId}")

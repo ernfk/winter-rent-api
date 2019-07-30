@@ -2,6 +2,7 @@ package converters;
 
 import com.winterrent.winterrent.converters.ItemToItemDTOConverter;
 import com.winterrent.winterrent.dto.ItemDTO;
+import com.winterrent.winterrent.dto.ItemPropertyDTO;
 import com.winterrent.winterrent.entity.Item;
 import com.winterrent.winterrent.entity.ItemProperty;
 import com.winterrent.winterrent.entity.ItemPropertyDefinition;
@@ -39,15 +40,15 @@ public class ItemToItemDTOConverterTests {
         itemPropertyTwo.setValue("500");
         itemPropertyTwo.setItemPropertyDefinition(itemPropertyDefinition);
 
-        List<ItemProperty> itemPropertyList = new ArrayList<>();
-        itemPropertyList.add(itemProperty);
-        itemPropertyList.add(itemPropertyTwo);
+        List<ItemProperty> itemProperties = new ArrayList<>();
+        itemProperties.add(itemProperty);
+        itemProperties.add(itemPropertyTwo);
 
         Item item = new Item();
         item.setId(2);
         item.setModelNo("Model");
         item.setItemType(ItemType.SKI);
-        item.setItemProperties(itemPropertyList);
+        item.setItemProperties(itemProperties);
 
         ItemDTO result = ITEM_TO_ITEM_DTO_CONVERTER.createFromEntity(item);
 
@@ -56,6 +57,38 @@ public class ItemToItemDTOConverterTests {
         assertEquals("250", result.getItemProperties().get(0).getValue());
         assertEquals(ItemType.SKI, result.getItemType());
         assertEquals("Model", result.getModelNo());
+    }
+
+    @Test
+    public void shouldConvertItemDTOToItem() {
+        ItemPropertyDTO itemPropertyDTO = new ItemPropertyDTO();
+        itemPropertyDTO.setValue("200");
+        itemPropertyDTO.setProperty("Length");
+        itemPropertyDTO.setId(10);
+
+        ItemPropertyDTO itemPropertyDTOTwo = new ItemPropertyDTO();
+        itemPropertyDTOTwo.setValue("Gender");
+        itemPropertyDTOTwo.setProperty("Male");
+        itemPropertyDTOTwo.setId(15);
+
+        List<ItemPropertyDTO> itemPropertyDtos = new ArrayList<>();
+        itemPropertyDtos.add(itemPropertyDTO);
+        itemPropertyDtos.add(itemPropertyDTOTwo);
+
+        ItemDTO itemDTO = new ItemDTO();
+        itemDTO.setId(100);
+        itemDTO.setModelNo("Model DTO");
+        itemDTO.setItemProperties(itemPropertyDtos);
+        itemDTO.setItemType(ItemType.SKI);
+
+        Item result = ITEM_TO_ITEM_DTO_CONVERTER.createFromDTO(itemDTO);
+
+        assertEquals(100, result.getId());
+        assertEquals(2, result.getItemProperties().size());
+        assertEquals("200", result.getItemProperties().get(0).getValue());
+        assertEquals(ItemType.SKI, result.getItemType());
+        assertEquals("Model DTO", result.getModelNo());
+        assertEquals("Length", result.getItemProperties().get(0).getItemPropertyDefinition().getPropertyName());
     }
 
 }

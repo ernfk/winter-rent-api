@@ -8,5 +8,5 @@ JMeter
 2. Things to do
 
 change the responses, => dto, msg, status
-test item converter
+add response with builder pattern
 refactor items -> update (duplicates the same fields)

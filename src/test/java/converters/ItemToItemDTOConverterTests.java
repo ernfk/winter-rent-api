@@ -70,6 +70,7 @@ public class ItemToItemDTOConverterTests {
         assertEquals("250", result.getItemProperties().get(0).getValue());
         assertEquals(ItemType.SKI, result.getItemType());
         assertEquals("Model", result.getModelNo());
+        assertEquals(0, result.getItemProperties().get(0).getPropertyId());
     }
 
     @Test
@@ -78,11 +79,13 @@ public class ItemToItemDTOConverterTests {
         itemPropertyDTO.setValue("200");
         itemPropertyDTO.setProperty("Length");
         itemPropertyDTO.setId(10);
+        itemPropertyDTO.setPropertyId(999);
 
         ItemPropertyDTO itemPropertyDTOTwo = new ItemPropertyDTO();
         itemPropertyDTOTwo.setValue("Gender");
         itemPropertyDTOTwo.setProperty("Male");
         itemPropertyDTOTwo.setId(15);
+        itemPropertyDTOTwo.setPropertyId(1000);
 
         List<ItemPropertyDTO> itemPropertyDtos = new ArrayList<>();
         itemPropertyDtos.add(itemPropertyDTO);
@@ -102,6 +105,7 @@ public class ItemToItemDTOConverterTests {
         assertEquals(ItemType.SKI, result.getItemType());
         assertEquals("Model DTO", result.getModelNo());
         assertEquals("Length", result.getItemProperties().get(0).getItemPropertyDefinition().getPropertyName());
+        assertEquals(999, result.getItemProperties().get(0).getItemPropertyDefinition().getId());
     }
 
     @Test

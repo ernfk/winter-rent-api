@@ -31,6 +31,7 @@ public class ItemToItemDTOConverter implements GenericConverter<Item, ItemDTO> {
                     itemPropertyDTO.setId(itemProperty.getId());
                     itemPropertyDTO.setProperty(itemProperty.getItemPropertyDefinition().getPropertyName());
                     itemPropertyDTO.setValue(itemProperty.getValue());
+                    itemPropertyDTO.setPropertyId(itemProperty.getItemPropertyDefinition().getId());
                     return itemPropertyDTO;
                 })
                 .collect(Collectors.toList());
@@ -63,7 +64,7 @@ public class ItemToItemDTOConverter implements GenericConverter<Item, ItemDTO> {
     private ItemPropertyDefinition getItemPropertyDefinition(ItemPropertyDTO itemPropertyDTO, ItemType type) {
         ItemPropertyDefinition itemPropertyDefinition = new ItemPropertyDefinition();
 
-        itemPropertyDefinition.setId(itemPropertyDTO.getId());
+        itemPropertyDefinition.setId(itemPropertyDTO.getPropertyId());
         itemPropertyDefinition.setItemType(type);
         itemPropertyDefinition.setPropertyName(itemPropertyDTO.getProperty());
         return itemPropertyDefinition;

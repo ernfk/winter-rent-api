@@ -4,6 +4,7 @@ public class ItemPropertyDTO {
     private int id;
     private String value;
     private String property;
+    private int propertyId;
 
     public int getId() {
         return id;
@@ -27,5 +28,13 @@ public class ItemPropertyDTO {
 
     public void setProperty(String property) {
         this.property = property;
+    }
+
+    public int getPropertyId() {
+        return propertyId;
+    }
+
+    public void setPropertyId(int propertyId) {
+        this.propertyId = propertyId;
     }
 }

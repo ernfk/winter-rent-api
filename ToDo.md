@@ -10,3 +10,4 @@ JMeter
 change the responses, => dto, msg, status
 add response with builder pattern
 refactor items -> update (duplicates the same fields)
+reconsider SessionFactory

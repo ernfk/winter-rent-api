@@ -40,15 +40,17 @@ public class ItemToItemDTOConverter implements GenericConverter<Item, ItemDTO> {
     @Override
     public Item createFromDTO(ItemDTO dto) {
         Item item = new Item();
+        List<ItemProperty> itemProperties = getItemProperties(dto.getItemProperties(), dto.getItemType(), item);
 
         item.setId(dto.getId());
         item.setModelNo(dto.getModelNo());
         item.setItemType(dto.getItemType());
-        item.setItemProperties(getItemProperties(dto.getItemProperties(), dto.getItemType()));
+        item.setItemProperties(itemProperties);
+
         return item;
     }
 
-    private List<ItemProperty> getItemProperties(List<ItemPropertyDTO> itemPropertiesDtos, ItemType type) {
+    private List<ItemProperty> getItemProperties(List<ItemPropertyDTO> itemPropertiesDtos, ItemType type, Item item) {
         return itemPropertiesDtos
                 .stream()
                 .map(itemPropertyDto -> {
@@ -56,6 +58,8 @@ public class ItemToItemDTOConverter implements GenericConverter<Item, ItemDTO> {
                     itemProperty.setId(itemPropertyDto.getId());
                     itemProperty.setItemPropertyDefinition(getItemPropertyDefinition(itemPropertyDto, type));
                     itemProperty.setValue(itemPropertyDto.getValue());
+                    itemProperty.setItemType(type);
+                    itemProperty.setItem(item);
                     return itemProperty;
                 })
                 .collect(Collectors.toList());

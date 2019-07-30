@@ -41,4 +41,14 @@ public class ItemDTO {
     public void setItemProperties(List<ItemPropertyDTO> itemProperties) {
         this.itemProperties = itemProperties;
     }
+
+    @Override
+    public String toString() {
+        return "ItemDTO{" +
+                "id=" + id +
+                ", itemType=" + itemType +
+                ", modelNo='" + modelNo + '\'' +
+                ", itemProperties=" + itemProperties +
+                '}';
+    }
 }

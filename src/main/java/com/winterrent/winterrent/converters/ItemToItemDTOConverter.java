@@ -68,4 +68,12 @@ public class ItemToItemDTOConverter implements GenericConverter<Item, ItemDTO> {
         itemPropertyDefinition.setPropertyName(itemPropertyDTO.getProperty());
         return itemPropertyDefinition;
     }
+
+    @Override
+    public List<ItemDTO> createListFromEntities(List<Item> entities) {
+        return entities
+                .stream()
+                .map(this::createFromEntity)
+                .collect(Collectors.toList());
+    }
 }

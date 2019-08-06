@@ -3,6 +3,7 @@ package com.winterrent.winterrent.rest.item;
 import com.winterrent.winterrent.converters.ItemToItemDTOConverter;
 import com.winterrent.winterrent.dto.ItemDTO;
 import com.winterrent.winterrent.entity.Item;
+import com.winterrent.winterrent.rest.responses.Response;
 import com.winterrent.winterrent.service.item.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,33 +26,37 @@ public class ItemRestController {
 
     @GetMapping("/items")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    List<ItemDTO> findAll() {
+    Response findAll() {
         List<Item> items = this.itemService.findAll();
-        return ITEM_TO_ITEM_DTO_CONVERTER.createListFromEntities(items);
+        List<ItemDTO> dtos = ITEM_TO_ITEM_DTO_CONVERTER.createListFromEntities(items);
+        return new Response(200, "Successfully found items", dtos);
     }
 
     @PostMapping("/items")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    ItemDTO addItem(@RequestBody ItemDTO itemDTO) {
+    Response addItem(@RequestBody ItemDTO itemDTO) {
         itemDTO.setId(0);
         Item item = ITEM_TO_ITEM_DTO_CONVERTER.createFromDTO(itemDTO);
         Item result = this.itemService.addItem(item);
-        return ITEM_TO_ITEM_DTO_CONVERTER.createFromEntity(result);
+        ItemDTO dto = ITEM_TO_ITEM_DTO_CONVERTER.createFromEntity(result);
+        return new Response(201, "Added new item", dto);
     }
 
     @GetMapping("items/{itemId}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    ItemDTO findItem(@PathVariable int itemId) {
+    Response findItem(@PathVariable int itemId) {
         Item item = this.itemService.findItem(itemId);
-        return ITEM_TO_ITEM_DTO_CONVERTER.createFromEntity(item);
+        ItemDTO dto = ITEM_TO_ITEM_DTO_CONVERTER.createFromEntity(item);
+        return new Response(200, "Successfully found item", dto);
     }
 
     @PutMapping("/items")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    ItemDTO updateItem(@RequestBody ItemDTO itemDTO) {
+    Response updateItem(@RequestBody ItemDTO itemDTO) {
         Item item = ITEM_TO_ITEM_DTO_CONVERTER.createFromDTO(itemDTO);
         Item result = this.itemService.updateItem(item);
-        return ITEM_TO_ITEM_DTO_CONVERTER.createFromEntity(result);
+        ItemDTO dto = ITEM_TO_ITEM_DTO_CONVERTER.createFromEntity(result);
+        return new Response(200, "Updated item successfully", dto);
     }
 
     @DeleteMapping("items/{itemId}")

@@ -1,7 +1,8 @@
 package com.winterrent.winterrent.rest;
 
-import com.winterrent.winterrent.rest.responses.ErrorResponse;
+import com.winterrent.winterrent.rest.exceptions.ImageNotFound;
 import com.winterrent.winterrent.rest.exceptions.ItemNotFound;
+import com.winterrent.winterrent.rest.responses.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
@@ -39,5 +40,15 @@ public class RestControllerExceptionHandler {
         error.setTimeStamp(System.currentTimeMillis());
 
         return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ErrorResponse> handleException(ImageNotFound exc) {
+        ErrorResponse error = new ErrorResponse();
+        error.setStatus(HttpStatus.NOT_FOUND.value());
+        error.setMessage(exc.getMessage());
+        error.setTimeStamp(System.currentTimeMillis());
+
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 }

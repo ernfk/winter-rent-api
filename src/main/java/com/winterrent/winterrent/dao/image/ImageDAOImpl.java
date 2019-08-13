@@ -42,6 +42,14 @@ public class ImageDAOImpl implements ImageDAO {
 
     @Override
     @Transactional
+    public Optional<Image> findImageById(int imageId) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Image image = currentSession.get(Image.class, imageId);
+        return Optional.ofNullable(image);
+    }
+
+    @Override
+    @Transactional
     public void deleteImage(int imageId) {
         Session currentSession = entityManager.unwrap(Session.class);
         Image image = currentSession.find(Image.class, imageId);

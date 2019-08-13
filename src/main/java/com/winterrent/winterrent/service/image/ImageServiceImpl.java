@@ -2,6 +2,7 @@ package com.winterrent.winterrent.service.image;
 
 import com.winterrent.winterrent.dao.image.ImageDAO;
 import com.winterrent.winterrent.entity.Image;
+import com.winterrent.winterrent.rest.exceptions.ImageNotFound;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,14 @@ public class ImageServiceImpl implements ImageService {
     public Image findImageByItemId(int itemId) {
         LOGGER.info("Getting image by item id: {}", itemId);
         Optional<Image> opt = this.imageDAO.findImageByItemId(itemId);
-        return opt.orElse(null);
+        return opt.orElseThrow(() -> new ImageNotFound("Image not found for item with id: " + itemId));
+    }
+
+    @Override
+    public Image findImageById(int imageId) {
+        LOGGER.info("Finding image by id: {}", imageId);
+        Optional<Image> opt = this.imageDAO.findImageById(imageId);
+        return opt.orElseThrow(() -> new ImageNotFound("Image not found with id: " + imageId));
     }
 
     @Override

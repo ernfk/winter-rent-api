@@ -60,6 +60,7 @@ public class ImageServiceImpl implements ImageService {
     }
 
     private Image prepareImage(MultipartFile file, int imageId, int itemId) {
+        LOGGER.info("Preparing image file from multipart file");
         Image image = new Image();
 
         String name = file.getOriginalFilename();

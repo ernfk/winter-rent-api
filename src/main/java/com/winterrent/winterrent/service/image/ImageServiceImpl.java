@@ -48,7 +48,8 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public void deleteImage(int imageId) {
         LOGGER.info("Deleting image with image id: {}", imageId);
-        this.imageDAO.deleteImage(imageId);
+        Image image = findImageById(imageId);
+        this.imageDAO.deleteImage(image);
     }
 
     @Override

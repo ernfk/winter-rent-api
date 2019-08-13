@@ -2,6 +2,7 @@ package com.winterrent.winterrent.dao.image;
 
 import com.winterrent.winterrent.entity.Image;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,10 +51,9 @@ public class ImageDAOImpl implements ImageDAO {
 
     @Override
     @Transactional
-    public void deleteImage(int imageId) {
+    public void deleteImage(Image image) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Image image = currentSession.find(Image.class, imageId);
-        entityManager.remove(image);
+        currentSession.delete(image);
     }
 
     @Override
